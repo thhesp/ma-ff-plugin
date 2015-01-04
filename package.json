@@ -5,5 +5,28 @@
   "description": "a basic add-on",
   "author": "",
   "license": "MPL 2.0",
-  "version": "0.1"
+  "version": "0.1",
+  "preferences": [{
+    "name": "useCustomIP",
+    "title": "Use a custom Server IP",
+    "description": "Use a custom Server IP. Default: 'false'",
+    "type": "bool",
+    "value": false
+    },
+    {
+    "name": "serverIP",
+    "title": "Server IP",
+    "description": "The Server IP to connect to. Default: 'localhost'",
+    "type": "string",
+    "value": "localhost"
+    },
+    {
+    "name": "serverPort",
+    "title": "Server Port",
+    "description": "The Server Port to connect to. Default: '8888'",
+    "type": "string",
+    "value": "8888"
+    }
+
+    ]
 }

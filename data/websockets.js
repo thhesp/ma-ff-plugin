@@ -2,35 +2,66 @@ console.log('load?');
 
 console.log('vor websocket');
 
-var connection = new WebSocket('ws://localhost:8888/ws');
+var connection = null;
 
-console.log('nach websocket');
+function restartWebsocketClient(settings){
+    closeWebsocket(settings);
+    openWebsocket();
+}
 
-connection.onopen = function () {
-    connection.send('Ping'); // Send the message 'Ping' to the server
-};
+function openWebsocket(settings){
+    var useCustomIP = settings['useCustomIP'];
 
-    // Log errors
-connection.onerror = function (error) {
-    console.log('WebSocket Error: ' + error);
-};
+    if(useCustomIP){
+        console.log('using custom IP');
+        var ip = settings['serverIP'];
+        var port = settings['serverPort'];
 
-    // Log messages from the server
-connection.onmessage = function (e) {
-    console.log('Server: ' + e.data);
-};
+        connection = new WebSocket('ws://'+ip+':'+port+'/');
+    }else{
+        //connection = new WebSocket('ws://localhost:8888/ws');
 
-        // Log close
-connection.onclose = function (e) {
-    console.log('Server close: ' + e);
-};
+        connection = new WebSocket('ws://192.168.111.140:8888/');
+    }
 
-console.log(connection);
+    console.log('nach websocket');
+
+    connection.onopen = function () {
+        connection.send('Ping'); // Send the message 'Ping' to the server
+    };
+
+        // Log errors
+    connection.onerror = function (error) {
+        console.log('WebSocket Error: ' + error);
+    };
+
+        // Log messages from the server
+    connection.onmessage = function (e) {
+        console.log('Server: ' + e.data);
+    };
+
+            // Log close
+    connection.onclose = function (e) {
+        console.log('Server close: ' + e);
+    };
+
+    console.log(connection);
+
+    return connection;
+}
+
+function closeWebsocket(){
+    connection.close();
+}
+
+
+function sendMessage(message) {
+  connection.send('Click happend? '+message);
+}
 
 console.log('finished');
 
 self.port.on("click", sendMessage);
-
-function sendMessage() {
-  connection.send('Click happend?');
-}
+self.port.on("restart", restartWebsocketClient);
+self.port.on("open", openWebsocket);
+self.port.on("close", closeWebsocket);
