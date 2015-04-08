@@ -54,7 +54,17 @@ CommunicationExtension.CommunicationController = (function (){
 
     onMessageReceived = function(event, object){
         console.log('messageObject', object);
+
+        processMessage(object);
     },
+
+    processMessage = function(object){
+        if(object.command == 'request'){
+            var responseObject = CommunicationExtension.DataModel.init(object).exportForJSON();
+
+            websocket.sendJSON(responseObject);
+        }
+    }
 
     that.init = init;
     that.openWebsocket = openWebsocket;

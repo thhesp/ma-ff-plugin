@@ -35,8 +35,9 @@ CommunicationExtension.WebsocketController = (function (){
     sendTestJSON = function(){
         console.log('sending test json');
         var obj = new Object();
-        obj.command = "Test";
-        obj.data = "Click happend";
+        obj.command = "request";
+        obj.x = 16;
+        obj.y = 15;
 
         sendJSON(obj);
         console.log('test json sent!');
