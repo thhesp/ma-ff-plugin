@@ -19,7 +19,7 @@ CommunicationExtension.WebsocketController = (function (){
         if(secure){
             openWebsocketReal('wss://'+ip+':'+port+'/');
         }else{
-            openWebsocketReal('ws://'+ip+':'+port+'/ws');
+            openWebsocketReal('ws://'+ip+':'+port+'/');
         }
     },
 
