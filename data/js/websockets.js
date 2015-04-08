@@ -61,6 +61,12 @@ function sendMessage(message) {
 
 console.log('finished');
 
+console.log('jquery test');
+
+console.log($('body'));
+
+console.log('ende jquery test');
+
 self.port.on("click", sendMessage);
 self.port.on("restart", restartWebsocketClient);
 self.port.on("open", openWebsocket);
