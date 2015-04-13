@@ -11,12 +11,26 @@ CommunicationExtension.DataModel = (function (){
 
         object.command = 'data';
 
+        console.log("Browserposition: ", window.screenX, window.screenY);
+
         console.log("Position: ", messageObject.x, messageObject.y);
 
-        var el = document.elementFromPoint(messageObject.x,messageObject.y);
- 
-        //printNodeData(el);
-        extractNodeData(el);
+        //map screen position to inner browser position
+
+        var realX = messageObject.x - window.screenX;
+
+        var realY = messageObject.y - window.screenY;
+
+        if(realX >= 0 && realY >= 0){
+            var el = document.elementFromPoint(realX,realY);
+     
+            //printNodeData(el);
+            extractNodeData(el);
+        }else{
+            object.errorCode = "???";
+            object.error = "Coordinates are outside of the browser window";
+        }
+
 
         return that;
     },
@@ -73,7 +87,7 @@ CommunicationExtension.DataModel = (function (){
 
             attributes.push(attr);
         }
-        
+
         object.attributes = attributes;
     },
 
