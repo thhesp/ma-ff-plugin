@@ -28,7 +28,6 @@ CommunicationExtension.DataModel = (function (){
     /* private methods */
 
     extractNodeData = function(el){
-        object.data = [];
         extractTag(el);
         extractID(el);
         extractClasses(el);
@@ -37,15 +36,11 @@ CommunicationExtension.DataModel = (function (){
     },
 
     extractID = function(el){
-        var obj = new Object();
-
         if(el.id){
-            obj.id = el.id;
+            object.id = el.id;
         }else{
-            obj.id = "";
+            object.id = "";
         }
-
-        object.data.push(obj);
     },
 
     extractClasses = function(el){
@@ -54,31 +49,19 @@ CommunicationExtension.DataModel = (function (){
             classes.push(el.classList[i]);
         }
 
-        var obj = new Object();
-
-        obj.classes = classes;
-
-        object.data.push(obj);
+        object.classes = classes;
     },
 
     extractTag = function(el){
-        var obj = new Object();
-
-        obj.tag = el.tagName;
-
-        object.data.push(obj);
+        object.tag = el.tagName;
     },
 
     extractTitle = function(el){
-        var obj = new Object();
-
         if(el.title){
-            obj.title = el.title;
+            object.title = el.title;
         }else{
-            obj.title = "";
+            object.title = "";
         }
-
-        object.data.push(obj);
     },
 
     extractAttributes = function(el){
@@ -90,12 +73,8 @@ CommunicationExtension.DataModel = (function (){
 
             attributes.push(attr);
         }
-
-        var obj = new Object();
-
-        obj.attributes = attributes;
-
-        object.data.push(obj);
+        
+        object.attributes = attributes;
     },
 
     printNodeData = function(el){
