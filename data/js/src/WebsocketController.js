@@ -34,7 +34,7 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     sendJSON = function(object){
-        object.timestamp = getUnixTimestamp();
+        object.clienttimestamp = getMillisecondsTimestamp();
 
         var json = JSON.stringify(object);
         connection.send(json);
@@ -120,7 +120,23 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     getUnixTimestamp = function(){
-        return Math.round((new Date()).getTime() / 1000);
+        var date = new Date();
+
+        var offset = -(date.getTimezoneOffset() * 60);
+
+        var timestamp = Math.round(new Date().getTime() / 1000) + offset;
+
+        return timestamp;
+    },
+
+    getMillisecondsTimestamp = function(){
+        var date = new Date();
+
+        var offset = -(date.getTimezoneOffset() * 60 * 1000);
+
+        var timestamp = new Date().getTime() + offset;
+
+        return timestamp;
     };
 
     that.init = init;
