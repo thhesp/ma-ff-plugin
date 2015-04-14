@@ -5,6 +5,8 @@ CommunicationExtension.CommunicationController = (function (){
     defaultIP = 'localhost',
     defaultPort = '8888',
 
+    activated = false,
+
 
 /* public methods */
 
@@ -54,8 +56,9 @@ CommunicationExtension.CommunicationController = (function (){
 
     onMessageReceived = function(event, object){
         console.log('messageObject', object);
-
-        processMessage(object);
+        if(activated){
+            processMessage(object);     
+        }
     },
 
     processMessage = function(object){
@@ -64,13 +67,24 @@ CommunicationExtension.CommunicationController = (function (){
 
             websocket.sendJSON(responseObject);
         }
-    }
+    },
+
+    activateTab = function(){
+        activated = true;
+    },
+
+    deactivateTab = function(){
+        activated = false;
+    };
 
     that.init = init;
     that.openWebsocket = openWebsocket;
     that.closeWebsocket = closeWebsocket;
     that.closeWebsocket = closeWebsocket;
     that.buttonClick = buttonClick;
+
+    that.activateTab = activateTab;
+    that.deactivateTab = deactivateTab;
 
     return that;
 })();

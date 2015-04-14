@@ -9,7 +9,7 @@ CommunicationExtension.DataModel = (function (){
 
         object = messageObject;
 
-        object.command = 'data';
+        object.url = window.location.href;
 
         console.log("Browserposition: ", window.screenX, window.screenY);
 
@@ -22,11 +22,15 @@ CommunicationExtension.DataModel = (function (){
         var realY = messageObject.y - window.screenY;
 
         if(realX >= 0 && realY >= 0){
+            object.command = 'data';
+
             var el = document.elementFromPoint(realX,realY);
      
             //printNodeData(el);
             extractNodeData(el);
         }else{
+            object.command = 'error';
+
             object.errorCode = "???";
             object.error = "Coordinates are outside of the browser window";
         }

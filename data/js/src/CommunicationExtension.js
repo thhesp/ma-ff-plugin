@@ -25,6 +25,33 @@ var CommunicationExtension = {
     onClose: function(){
         console.log('close extension object');
         controller.closeWebsocket();
+    },
+
+    onActivateTab: function(tabUrl){
+        var thisUrl = window.location.href;
+
+        console.log('activate tab: ', thisUrl);
+
+        console.log('activated tab: ', tabUrl);
+
+        if(thisUrl == tabUrl){
+            controller.activateTab();
+        }else{
+            controller.deactivateTab();
+        }
+
+    },
+
+    onDeactivateTab: function(tabUrl){
+        var thisUrl = window.location.href;
+
+        console.log('deactivate tab: ', thisUrl);
+
+        console.log('activated tab: ', tabUrl);
+
+        if(thisUrl == tabUrl){
+            controller.deactivateTab();
+        }
     }
 
 };
