@@ -34,6 +34,8 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     sendJSON = function(object){
+        object.timestamp = getUnixTimestamp();
+
         var json = JSON.stringify(object);
         connection.send(json);
     },
@@ -73,7 +75,7 @@ CommunicationExtension.WebsocketController = (function (){
     onOpen = function(e){
         console.log('Socket open');
 
-        sendOpenSequence();
+        sendConnectionRequest();
     },
 
     onError = function(e){
@@ -86,7 +88,12 @@ CommunicationExtension.WebsocketController = (function (){
         var object = $.parseJSON(e.data);
 
         if(object != undefined && object.command != undefined){
-            $(that).trigger('messageReceived', object);
+            if(object.command == "connectionResponse")
+            {
+                sendConnectionComplete();
+            }else{
+                $(that).trigger('messageReceived', object);   
+            }
         }
     },
 
@@ -94,15 +101,26 @@ CommunicationExtension.WebsocketController = (function (){
         console.log('Server close: ' + e);
     },
 
-    sendOpenSequence = function(){
-        console.log('sending test json');
+    sendConnectionRequest = function(){
+        console.log('sending connection request');
         var object = new Object();
-        object.command = "connect";
+        object.command = "connectRequest";
         object.page = window.location.href;
 
         sendJSON(object);
-        console.log('test json sent!');
+    },
 
+    sendConnectionComplete = function(){
+        console.log('sending connection ');
+        var object = new Object();
+        object.command = "connectComplete";
+        object.page = window.location.href;
+
+        sendJSON(object);
+    },
+
+    getUnixTimestamp = function(){
+        return Math.round((new Date()).getTime() / 1000);
     };
 
     that.init = init;
