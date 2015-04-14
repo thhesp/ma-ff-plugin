@@ -21,11 +21,6 @@ CommunicationExtension.CommunicationController = (function (){
     },
 
     openWebsocket = function(extensionSettings){
-        // secure?
-
-        var secure = false;
-
-
         var useCustomIP = extensionSettings['useCustomIP'];
 
         if(useCustomIP){
@@ -33,9 +28,9 @@ CommunicationExtension.CommunicationController = (function (){
             var ip = extensionSettings['serverIP'];
             var port = extensionSettings['serverPort'];
 
-            websocket.openWebsocket(ip, port, secure);
+            websocket.openWebsocket(ip, port);
         }else{
-             websocket.openWebsocket(defaultIP, defaultPort, secure);
+             websocket.openWebsocket(defaultIP, defaultPort);
         }
     },
 

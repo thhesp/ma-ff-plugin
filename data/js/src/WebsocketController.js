@@ -13,13 +13,19 @@ CommunicationExtension.WebsocketController = (function (){
 
     openWebsocket = function(ip, port, secure){
         if(secure == undefined){
-            secure = false;
+            if (window.location.protocol != "https:"){
+                secure = false;
+            }else{
+                secure = true;
+            }
         }
 
         if(secure){
+            console.log('secure websocket');
             openWebsocketReal('wss://'+ip+':'+port+'/');
         }else{
-            openWebsocketReal('ws://'+ip+':'+port+'/ws');
+            console.log('unsecure websocket');
+            openWebsocketReal('ws://'+ip+':'+port+'/');
         }
     },
 
