@@ -1,5 +1,6 @@
 CommunicationExtension.DataModel = (function (){
     var that = {},
+
     object = null,
 
 
@@ -11,9 +12,9 @@ CommunicationExtension.DataModel = (function (){
 
         object.url = window.location.href;
 
-        console.log("Browserposition: ", window.screenX, window.screenY);
+        Logger.log("Browserposition: ", window.screenX, window.screenY);
 
-        console.log("Position: ", messageObject.x, messageObject.y);
+        Logger.log("Position: ", messageObject.x, messageObject.y);
 
         //map screen position to inner browser position
 
@@ -96,31 +97,31 @@ CommunicationExtension.DataModel = (function (){
     },
 
     printNodeData = function(el){
-        console.log('Element: ', el);
+        Logger.log('Element: ', el);
 
-        console.log('Attributes: ', el.attributes);
+        Logger.log('Attributes: ', el.attributes);
 
-        console.log('ClassList: ', el.classList);
+        Logger.log('ClassList: ', el.classList);
 
-        console.log('id: ', el.id);
+        Logger.log('id: ', el.id);
 
-        console.log('innerHTML: ', el.innerHTML);
+        Logger.log('innerHTML: ', el.innerHTML);
 
-        console.log('nodeName: ', el.nodeName);
+        Logger.log('nodeName: ', el.nodeName);
 
-        console.log('nodeType: ', el.nodeType);
+        Logger.log('nodeType: ', el.nodeType);
 
-        console.log('nodeValue: ', el.nodeValue);
+        Logger.log('nodeValue: ', el.nodeValue);
 
-        console.log('parentNode: ', el.parentNode);
+        Logger.log('parentNode: ', el.parentNode);
 
-        console.log('parentElement: ', el.parentElement);
+        Logger.log('parentElement: ', el.parentElement);
 
-        console.log('tagName: ', el.tagName);
+        Logger.log('tagName: ', el.tagName);
 
-        console.log('title: ', el.title);
+        Logger.log('title: ', el.title);
 
-        console.log('toString: ', el.toString());
+        Logger.log('toString: ', el.toString());
     };
 
     that.init = init;

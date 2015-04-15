@@ -2,8 +2,7 @@ CommunicationExtension.CommunicationController = (function (){
     var that = {},
     websocket = null,
 
-    defaultIP = 'localhost',
-    defaultPort = '8888',
+    settings = null,
 
     activated = false,
 
@@ -11,7 +10,9 @@ CommunicationExtension.CommunicationController = (function (){
 /* public methods */
 
     init = function(){
-        console.log('Communication controller init');
+        settings = CommunicationExtension.Settings;
+
+        Logger.log('Communication controller init');
 
         websocket = CommunicationExtension.WebsocketController.init();
 
@@ -20,23 +21,21 @@ CommunicationExtension.CommunicationController = (function (){
         return that;
     },
 
-    openWebsocket = function(extensionSettings){
-        var useCustomIP = extensionSettings['useCustomIP'];
-
-        if(useCustomIP){
-            console.log('using custom IP');
-            var ip = extensionSettings['serverIP'];
-            var port = extensionSettings['serverPort'];
+    openWebsocket = function(){
+        if(settings.getUseCustomIP()){
+            Logger.log('using custom IP');
+            var ip = settings.getServerIP();
+            var port = settings.getServerPort();
 
             websocket.openWebsocket(ip, port);
         }else{
-             websocket.openWebsocket(defaultIP, defaultPort);
+             websocket.openWebsocket(settings.getDefaultIP(), settings.getDefaultPort());
         }
     },
 
-    restartWebsocket = function(extensionSettings){
+    restartWebsocket = function(){
         closeWebsocket();
-        openWebsocket(extensionSettings);
+        openWebsocket();
     }
 
     buttonClick = function(){
@@ -50,7 +49,7 @@ CommunicationExtension.CommunicationController = (function (){
 /* private methods */
 
     onMessageReceived = function(event, object){
-        console.log('messageObject', object);
+        Logger.log('messageObject', object);
         if(activated){
             processMessage(object);     
         }
@@ -74,7 +73,7 @@ CommunicationExtension.CommunicationController = (function (){
 
     that.init = init;
     that.openWebsocket = openWebsocket;
-    that.closeWebsocket = closeWebsocket;
+    that.restartWebsocket = restartWebsocket;
     that.closeWebsocket = closeWebsocket;
     that.buttonClick = buttonClick;
 

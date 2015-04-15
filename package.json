@@ -7,6 +7,13 @@
   "license": "MPL 2.0",
   "version": "0.1",
   "preferences": [{
+    "name": "debug",
+    "title": "Debug",
+    "description": "Show debug messages. Default: 'false'",
+    "type": "bool",
+    "value": true
+    },
+    {
     "name": "useCustomIP",
     "title": "Use a custom Server IP",
     "description": "Use a custom Server IP. Default: 'false'",

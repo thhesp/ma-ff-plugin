@@ -1,38 +1,49 @@
 var CommunicationExtension = {
 
     controller: null,
+    settings: null,
 
     init: function() {
-        console.log('init extension object');
         controller = this.CommunicationController.init();
+        settings = this.Settings;
     },
 
-    onOpen: function(settings){
-        console.log('open extension object');
-        controller.openWebsocket(settings);
+    onOpen: function(extensionSettings){
+        settings = settings.init(extensionSettings);
+
+        Logger.log('open extension object');
+
+        controller.openWebsocket();
     },
     
-    onRestart: function(settings){
-        console.log('restart extension object');
-        controller.restartWebsocket(settings);
+    onRestart: function(extensionSettings){
+        settings = settings.init(extensionSettings);
+
+        Logger.error(extensionSettings);
+
+        Logger.error("Debug: ", settings.getDebug());
+
+        Logger.log('restart extension object');
+
+        controller.restartWebsocket();
     },
 
     onClick: function(){
-        console.log('click extension object');
+        Logger.log('click extension object');
         controller.buttonClick();
     },
 
     onClose: function(){
-        console.log('close extension object');
+        Logger.log('close extension object');
         controller.closeWebsocket();
     },
 
     onActivateTab: function(tabUrl){
         var thisUrl = window.location.href;
 
-        console.log('activate tab: ', thisUrl);
+        Logger.log('activate tab: ', thisUrl);
 
-        console.log('activated tab: ', tabUrl);
+        Logger.log('activated tab: ', tabUrl);
 
         if(thisUrl == tabUrl){
             controller.activateTab();
@@ -45,9 +56,9 @@ var CommunicationExtension = {
     onDeactivateTab: function(tabUrl){
         var thisUrl = window.location.href;
 
-        console.log('deactivate tab: ', thisUrl);
+        Logger.log('deactivate tab: ', thisUrl);
 
-        console.log('activated tab: ', tabUrl);
+        Logger.log('activated tab: ', tabUrl);
 
         if(thisUrl == tabUrl){
             controller.deactivateTab();
