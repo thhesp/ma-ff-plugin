@@ -51,7 +51,7 @@ CommunicationExtension.WebsocketController = (function (){
 
             var json = JSON.stringify(object);
             connection.send(json);
-        }els€{
+        }else{
             Logger.error("No open Websocket connection");
             retryConnection();
         }
