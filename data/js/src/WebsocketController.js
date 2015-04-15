@@ -48,6 +48,7 @@ CommunicationExtension.WebsocketController = (function (){
     sendJSON = function(object){
         if(open){
             object.clientsent = Timestamp.getMillisecondsTimestamp();
+            object.url = window.location.href;
 
             var json = JSON.stringify(object);
             connection.send(json);
@@ -141,16 +142,14 @@ CommunicationExtension.WebsocketController = (function (){
         Logger.log('sending connection request');
         var object = new Object();
         object.command = "connectRequest";
-        object.page = window.location.href;
 
         sendJSON(object);
     },
 
     sendConnectionComplete = function(){
-        Logger.log('sending connection ');
+        Logger.log('sending connection complete');
         var object = new Object();
         object.command = "connectComplete";
-        object.page = window.location.href;
 
         sendJSON(object);
     },

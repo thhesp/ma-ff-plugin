@@ -2,6 +2,8 @@ CommunicationExtension.CommunicationController = (function (){
     var that = {},
     websocket = null,
 
+    pageEventListener = null,
+
     settings = null,
 
     activated = false,
@@ -17,6 +19,10 @@ CommunicationExtension.CommunicationController = (function (){
         websocket = CommunicationExtension.WebsocketController.init();
 
         $(websocket).on('messageReceived', onMessageReceived);
+
+        pageEventListener = CommunicationExtension.PageEventListener.init();
+
+        $(pageEventListener).on('event', onEventHappend);
 
         return that;
     },
@@ -55,7 +61,13 @@ CommunicationExtension.CommunicationController = (function (){
         }
     },
 
+    onEventHappend = function(event, messageObj){
+        Logger.log('Event: ' + messageObj);
+        websocket.sendJSON(messageObj);
+    },
+
     processMessage = function(object){
+        // data request
         if(object.command == 'request'){
             var responseObject = CommunicationExtension.DataModel.init(object).exportForJSON();
 

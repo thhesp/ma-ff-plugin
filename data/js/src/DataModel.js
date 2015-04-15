@@ -10,8 +10,6 @@ CommunicationExtension.DataModel = (function (){
 
         object = messageObject;
 
-        object.url = window.location.href;
-
         Logger.log("Browserposition: ", window.screenX, window.screenY);
 
         Logger.log("Position: ", messageObject.x, messageObject.y);
