@@ -26,16 +26,24 @@ CommunicationExtension.DataModel = (function (){
             var el = document.elementFromPoint(realX,realY);
      
             //printNodeData(el);
-            extractNodeData(el);
+            if(el != null && el != undefined){
+                extractNodeData(el);
+            }else{
+                createErrorMessage();
+            }
         }else{
-            object.command = 'error';
-
-            object.errorCode = "???";
-            object.error = "Coordinates are outside of the browser window";
+            createErrorMessage();
         }
 
 
         return that;
+    },
+
+    createErrorMessage = function(){
+        object.command = 'error';
+
+        object.errorCode = "???";
+        object.error = "Coordinates are outside of the browser window";
     },
 
     exportForJSON = function(){
@@ -50,6 +58,7 @@ CommunicationExtension.DataModel = (function (){
         extractClasses(el);
         extractTitle(el);
         extractAttributes(el);
+        extractElementDimensions(el);
     },
 
     extractID = function(el){
@@ -92,6 +101,17 @@ CommunicationExtension.DataModel = (function (){
         }
 
         object.attributes = attributes;
+    },
+
+    extractElementDimensions = function(el){
+        object.element = new Object();
+
+        object.element.top = $(el).position().top;
+        object.element.left = $(el).position().left;
+        object.element.width = $(el).width();
+        object.element.height = $(el).height();
+        object.element.outerWidth = $(el).outerWidth(true);
+        object.element.outerHeight = $(el).outerHeight(true);
     },
 
     printNodeData = function(el){
