@@ -14,10 +14,13 @@ CommunicationExtension.DataModel = (function (){
 
         Logger.log("Position: ", messageObject.x, messageObject.y);
 
+        //get height of toolbar etc. (not really working with the browser console open)
+        var toolbarHeight = window.outerHeight - window.innerHeight;
+
         //map screen position to inner browser position and overall browser position
         var realX = messageObject.x - window.screenX;
 
-        var realY = messageObject.y - window.screenY;
+        var realY = messageObject.y - window.screenY - toolbarHeight;
 
         CommunicationExtension.DebuggerView.init().markPosition(realX, realY);
 
