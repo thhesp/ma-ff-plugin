@@ -14,11 +14,12 @@ CommunicationExtension.DataModel = (function (){
 
         Logger.log("Position: ", messageObject.x, messageObject.y);
 
-        //map screen position to inner browser position
-
+        //map screen position to inner browser position and overall browser position
         var realX = messageObject.x - window.screenX;
 
         var realY = messageObject.y - window.screenY;
+
+        CommunicationExtension.DebuggerView.init().markPosition(realX, realY);
 
         if(realX >= 0 && realY >= 0){
             object.command = 'data';

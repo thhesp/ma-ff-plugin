@@ -35,7 +35,7 @@ CommunicationExtension.CommunicationController = (function (){
 
             websocket.openWebsocket(ip, port);
         }else{
-             websocket.openWebsocket(settings.getDefaultIP(), settings.getDefaultPort());
+            websocket.openWebsocket(settings.getDefaultIP(), settings.getDefaultPort());
         }
     },
 
@@ -57,7 +57,7 @@ CommunicationExtension.CommunicationController = (function (){
     onMessageReceived = function(event, object){
         Logger.log('messageObject', object);
         if(activated){
-            processMessage(object);     
+            processMessage(object);
         }
     },
 

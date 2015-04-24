@@ -8,6 +8,8 @@ CommunicationExtension.Settings = (function (){
     serverIP = defaultIP,
     serverPort = defaultPort,
 
+    isDebuggerActive = true,
+
 /* public methods */
 
     init = function(settings){
@@ -42,6 +44,18 @@ CommunicationExtension.Settings = (function (){
 
     getServerPort = function(){
         return serverPort;
+    },
+
+    getIsDebuggerActive = function(){
+        return isDebuggerActive;
+    },
+
+    activateDebuggerView = function(){
+        isDebuggerActive = true;
+    },
+
+    deactivateDebuggerView = function(){
+        isDebuggerActive = false;
     },
 
 /* private methods */
