@@ -2,11 +2,14 @@ CommunicationExtension.DataModel = (function (){
     var that = {},
 
     object = null,
+    debuggerView = null,
 
 
     /* public methods */
 
     init = function(messageObject){
+
+        debuggerView = CommunicationExtension.DebuggerView.init();
 
         object = messageObject;
 
@@ -22,12 +25,18 @@ CommunicationExtension.DataModel = (function (){
 
         var realY = messageObject.y - window.screenY - toolbarHeight;
 
-        CommunicationExtension.DebuggerView.init().markPosition(realX, realY);
+        debuggerView.markPosition(realX, realY);
 
         if(realX >= 0 && realY >= 0){
             object.command = 'data';
 
+            //hide element so it won't be used
+            debuggerView.hideElement();
+
             var el = document.elementFromPoint(realX,realY);
+
+            // show the element
+            debuggerView.showElement();
      
             //printNodeData(el);
             if(el != null && el != undefined){
