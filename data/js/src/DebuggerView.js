@@ -10,10 +10,10 @@ CommunicationExtension.DebuggerView = (function (){
         return that;
     },
 
-    markPosition = function(x, y){
+    markPosition = function(x, y, color){
         getDebuggerElement().remove();
 
-        var debugElement = '<div id="'+debuggerElementId+'" style="position: absolute; left: '+x+'px; top: '+y+'px; background-color: red; width: 5px; height: 5px;"></div>';
+        var debugElement = '<div id="'+debuggerElementId+'" style="position: absolute; left: '+x+'px; top: '+y+'px; background-color: '+color+'; width: 5px; height: 5px;"></div>';
 
         $("body").append(debugElement);
     },

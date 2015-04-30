@@ -13,23 +13,30 @@ CommunicationExtension.DataModel = (function (){
 
         object = messageObject;
 
-        Logger.log("Browserposition: ", window.screenX, window.screenY);
+        object.command = 'data';
 
-        Logger.log("Position: ", messageObject.x, messageObject.y);
+        Logger.log("Browserposition: ", window.screenX, window.screenY);
 
         //get height of toolbar etc. (not really working with the browser console open)
         var toolbarHeight = window.outerHeight - window.innerHeight;
 
+        analyzeData(object.left, toolbarHeight, "red");
+        analyzeData(object.right, toolbarHeight, "blue");
+
+
+        return that;
+    },
+
+    analyzeData = function(eyeObject, toolbarHeight, markColor) {
+
         //map screen position to inner browser position and overall browser position
-        var realX = messageObject.x - window.screenX;
+        var realX = eyeObject.x - window.screenX;
 
-        var realY = messageObject.y - window.screenY - toolbarHeight;
+        var realY = eyeObject.y - window.screenY - toolbarHeight;
 
-        debuggerView.markPosition(realX, realY);
+        debuggerView.markPosition(realX, realY, markColor);
 
         if(realX >= 0 && realY >= 0){
-            object.command = 'data';
-
             //hide element so it won't be used
             debuggerView.hideElement();
 
@@ -40,23 +47,20 @@ CommunicationExtension.DataModel = (function (){
      
             //printNodeData(el);
             if(el != null && el != undefined){
-                extractNodeData(el);
+                extractNodeData(eyeObject, el);
             }else{
-                createErrorMessage();
+                createErrorMessage(eyeObject);
             }
         }else{
-            createErrorMessage();
+            createErrorMessage(eyeObject);
         }
-
-
-        return that;
     },
 
-    createErrorMessage = function(){
-        object.command = 'error';
+    createErrorMessage = function(eyeObject){
+        eyeObject.command = 'error';
 
-        object.errorCode = "???";
-        object.error = "Coordinates are outside of the browser window";
+        eyeObject.errorCode = "???";
+        eyeObject.error = "Coordinates are outside of the browser window";
     },
 
     exportForJSON = function(){
@@ -65,20 +69,20 @@ CommunicationExtension.DataModel = (function (){
 
     /* private methods */
 
-    extractNodeData = function(el){
-        extractTag(el);
-        extractID(el);
-        extractClasses(el);
-        extractTitle(el);
-        extractAttributes(el);
-        extractElementDimensions(el);
+    extractNodeData = function(eyeObject, el){
+        eyeObject.tag = extractTag(el);
+        eyeObject.id = extractID(el);
+        eyeObject.classes = extractClasses(el);
+        eyeObject.title = extractTitle(el);
+        eyeObject.attributes = extractAttributes(el);
+        eyeObject.element = extractElementDimensions(el);
     },
 
     extractID = function(el){
         if(el.id){
-            object.id = el.id;
+            return el.id;
         }else{
-            object.id = "";
+            return "";
         }
     },
 
@@ -88,18 +92,18 @@ CommunicationExtension.DataModel = (function (){
             classes.push(el.classList[i]);
         }
 
-        object.classes = classes;
+        return classes;
     },
 
     extractTag = function(el){
-        object.tag = el.tagName;
+        return el.tagName;
     },
 
     extractTitle = function(el){
         if(el.title){
-            object.title = el.title;
+            return el.title;
         }else{
-            object.title = "";
+            return "";
         }
     },
 
@@ -113,18 +117,20 @@ CommunicationExtension.DataModel = (function (){
             attributes.push(attr);
         }
 
-        object.attributes = attributes;
+        return attributes;
     },
 
     extractElementDimensions = function(el){
-        object.element = new Object();
+        var element = new Object();
 
-        object.element.top = $(el).position().top;
-        object.element.left = $(el).position().left;
-        object.element.width = $(el).width();
-        object.element.height = $(el).height();
-        object.element.outerWidth = $(el).outerWidth(true);
-        object.element.outerHeight = $(el).outerHeight(true);
+        element.top = $(el).position().top;
+        element.left = $(el).position().left;
+        element.width = $(el).width();
+        element.height = $(el).height();
+        element.outerWidth = $(el).outerWidth(true);
+        element.outerHeight = $(el).outerHeight(true);
+
+        return element;
     },
 
     printNodeData = function(el){
