@@ -15,11 +15,15 @@ CommunicationExtension.DataModel = (function (){
 
         object.command = 'data';
 
-        Logger.log("Browserposition: ", window.screenX, window.screenY);
+        Logger.log("Browserposition: " + window.screenX  + "/"+ window.screenY);
 
         //get height of toolbar etc. (not really working with the browser console open)
         var toolbarHeight = window.outerHeight - window.innerHeight;
 
+        Logger.log("Toolbarheight: " + toolbarHeight);
+
+
+        debuggerView.removeDebuggerElement();
         analyzeData(object.left, toolbarHeight, "red");
         analyzeData(object.right, toolbarHeight, "blue");
 
@@ -30,9 +34,9 @@ CommunicationExtension.DataModel = (function (){
     analyzeData = function(eyeObject, toolbarHeight, markColor) {
 
         //map screen position to inner browser position and overall browser position
-        var realX = eyeObject.x - window.screenX;
+        var realX = eyeObject.x - window.mozInnerScreenX;
 
-        var realY = eyeObject.y - window.screenY - toolbarHeight;
+        var realY = eyeObject.y - window.mozInnerScreenY;
 
         debuggerView.markPosition(realX, realY, markColor);
 

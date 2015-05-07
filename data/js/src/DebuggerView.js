@@ -1,7 +1,7 @@
 CommunicationExtension.DebuggerView = (function (){
     var that = {},
 
-    debuggerElementId = "debugger-view-el";
+    debuggerElementClass = "debugger-view-el";
 
     /* public methods */
 
@@ -11,17 +11,18 @@ CommunicationExtension.DebuggerView = (function (){
     },
 
     markPosition = function(x, y, color){
-        getDebuggerElement().remove();
-
-        var debugElement = '<div id="'+debuggerElementId+'" style="position: absolute; left: '+x+'px; top: '+y+'px; background-color: '+color+'; width: 5px; height: 5px;"></div>';
+        var debugElement = '<div class="'+debuggerElementClass+'" style="position: absolute; left: '+x+'px; top: '+y+'px; background-color: '+color+'; width: 5px; height: 5px;"></div>';
 
         $("body").append(debugElement);
     },
 
     getDebuggerElement = function(){
-        return $('#'+debuggerElementId);
+        return $('.'+debuggerElementClass);
     },
 
+    removeDebuggerElement = function(){
+        getDebuggerElement().remove();
+    },
 
     hideElement = function(){
        getDebuggerElement().hide();
@@ -35,6 +36,7 @@ CommunicationExtension.DebuggerView = (function (){
     that.markPosition = markPosition;
     that.hideElement = hideElement;
     that.showElement = showElement;
+    that.removeDebuggerElement = removeDebuggerElement;
 
     return that;
 })();
