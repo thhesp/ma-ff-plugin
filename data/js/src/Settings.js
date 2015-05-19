@@ -13,10 +13,12 @@ CommunicationExtension.Settings = (function (){
 /* public methods */
 
     init = function(settings){
-        initSettings(settings);
+        if(settings != undefined){
+            initSettings(settings);
 
-        if(debug){
-            Logger.log('settings init');
+            if(debug){
+                Logger.log('settings init');
+            }
         }
         
         return that;
@@ -61,10 +63,22 @@ CommunicationExtension.Settings = (function (){
 /* private methods */
 
     initSettings = function(settings){
-        useCustomIP = settings['useCustomIP'];
-        serverIP = settings['serverIP'];
-        serverPort = settings['serverPort'];
-        debug = settings['debug'];
+        if(settings['useCustomIP'] != undefined){
+            useCustomIP = settings['useCustomIP'];
+        }
+
+        if(settings['serverIP'] != undefined){
+            serverIP = settings['serverIP'];
+        }
+
+        if(settings['serverPort'] != undefined){
+            serverPort = settings['serverPort'];
+        }
+
+        if(settings['debug'] != undefined){
+            debug = settings['debug'];
+        }
+        
     };
 
     that.init = init;
