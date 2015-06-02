@@ -47,8 +47,8 @@ CommunicationExtension.DataModel = (function (){
         var realY = eyeObject.y - window.mozInnerScreenY;
 
         //calculate scroll position?
-        realX += screenX;
-        realY += screenY;
+        realX += scrollX;
+        realY += scrollY;
 
         debuggerView.markPosition(realX, realY, markColor);
 
