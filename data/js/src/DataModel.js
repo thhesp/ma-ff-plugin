@@ -50,6 +50,8 @@ CommunicationExtension.DataModel = (function (){
         realX += scrollX;
         realY += scrollY;
 
+        Logger.log("Real x: "+ realX + " / y: " + realY);
+
         debuggerView.markPosition(realX, realY, markColor);
 
         if(realX >= 0 && realY >= 0){
@@ -65,31 +67,41 @@ CommunicationExtension.DataModel = (function (){
             if(el != null && el != undefined){
                 extractNodeData(eyeObject, el);
             }else{
-                createErrorMessage(eyeObject);
+                createNotFoundMessage(eyeObject);
             }
         }else{
-            createErrorMessage(eyeObject);
+            createCoordinatesErrorMessage(eyeObject);
         }
     },
 
-    createErrorMessage = function(eyeObject){
+    exportForJSON = function(){
+        return object;
+    },
+
+    /* private methods */
+
+    createNotFoundMessage = function(eyeObject){
+        eyeObject.command = 'error';
+
+        eyeObject.errorCode = "???";
+        eyeObject.error = "No Element was Found at this location.";
+    },
+
+    createCoordinatesErrorMessage = function(eyeObject){
         eyeObject.command = 'error';
 
         eyeObject.errorCode = "???";
         eyeObject.error = "Coordinates are outside of the browser window";
     },
 
-    exportForJSON = function(){
-        return object;
-    }
-
-    /* private methods */
-
     extractNodeData = function(eyeObject, el){
         eyeObject.tag = extractTag(el);
-        eyeObject.id = extractID(el);
-        eyeObject.classes = extractClasses(el);
-        eyeObject.title = extractTitle(el);
+    
+        // removed because they are in attributes
+        //eyeObject.id = extractID(el);
+        //eyeObject.classes = extractClasses(el);
+        //eyeObject.title = extractTitle(el);
+
         eyeObject.attributes = extractAttributes(el);
         eyeObject.element = extractElementDimensions(el);
     },
