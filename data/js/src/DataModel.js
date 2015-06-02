@@ -24,8 +24,16 @@ CommunicationExtension.DataModel = (function (){
 
 
         debuggerView.removeDebuggerElement();
-        analyzeData(object.left, toolbarHeight, "red");
-        analyzeData(object.right, toolbarHeight, "blue");
+
+        if(object.left != null && object.right != null){
+            // "big" message
+            analyzeData(object.left, toolbarHeight, "red");
+            analyzeData(object.right, toolbarHeight, "blue");
+        }else if(object.x != null && object.y != null ){
+            // "small" message
+            analyzeData(object, toolbarHeight, "blue");
+        }
+
 
 
         return that;
@@ -37,6 +45,10 @@ CommunicationExtension.DataModel = (function (){
         var realX = eyeObject.x - window.mozInnerScreenX;
 
         var realY = eyeObject.y - window.mozInnerScreenY;
+
+        //calculate scroll position?
+        realX += screenX;
+        realY += screenY;
 
         debuggerView.markPosition(realX, realY, markColor);
 
