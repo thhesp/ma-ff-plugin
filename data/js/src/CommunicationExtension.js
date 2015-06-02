@@ -41,9 +41,9 @@ var CommunicationExtension = {
     onActivateTab: function(tabUrl){
         var thisUrl = window.location.href;
 
-        Logger.log('activate tab: ', thisUrl);
+        Logger.log('activate tab: ' + thisUrl);
 
-        Logger.log('activated tab: ', tabUrl);
+        Logger.log('activated tab: ' + tabUrl);
 
         if(thisUrl == tabUrl){
             controller.activateTab();
@@ -56,9 +56,9 @@ var CommunicationExtension = {
     onDeactivateTab: function(tabUrl){
         var thisUrl = window.location.href;
 
-        Logger.log('deactivate tab: ', thisUrl);
+        Logger.log('deactivate tab: ' + thisUrl);
 
-        Logger.log('activated tab: ', tabUrl);
+        Logger.log('deactivated tab: ' + tabUrl);
 
         if(thisUrl == tabUrl){
             controller.deactivateTab();

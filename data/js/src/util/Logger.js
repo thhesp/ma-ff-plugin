@@ -2,12 +2,12 @@ var Logger = {
 
     log: function(message){
         if(CommunicationExtension.Settings.getDebug()){
-            console.log(Timestamp.getMillisecondsTimestamp(),':',message);
+            console.log(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':',message);
         }
     },
 
     error: function(message){
-    	console.error(Timestamp.getMillisecondsTimestamp(),':',message);
+    	console.error(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':',message);
     }
 
 };
