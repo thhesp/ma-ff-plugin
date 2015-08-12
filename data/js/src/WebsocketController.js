@@ -34,7 +34,10 @@ CommunicationExtension.WebsocketController = (function (){
 
         if(secure){
             Logger.log('secure websocket');
-            openWebsocketReal('wss://'+ip+':'+port+'/');
+            //currenty secure websockets are not supported by the server
+            //openWebsocketReal('wss://'+ip+':'+port+'/');
+
+            openWebsocketReal('ws://'+ip+':'+port+'/');
         }else{
             Logger.log('unsecure websocket');
             openWebsocketReal('ws://'+ip+':'+port+'/');
