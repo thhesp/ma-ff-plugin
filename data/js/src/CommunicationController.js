@@ -6,7 +6,7 @@ CommunicationExtension.CommunicationController = (function (){
 
     settings = null,
 
-    activated = false,
+    activated = true,
 
 
 /* public methods */
