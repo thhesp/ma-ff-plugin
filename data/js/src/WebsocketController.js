@@ -48,13 +48,20 @@ CommunicationExtension.WebsocketController = (function (){
         connection.close();
     },
 
-    sendJSON = function(object){
-        if(open){
-            object.clientsent = Timestamp.getMillisecondsTimestamp();
-            object.url = window.location.href;
+    sendJSON = function(object, small){
 
-            var json = JSON.stringify(object);
-            connection.send(json);
+
+        if(open){
+            if(small == undefined || small == false){
+                object.clientsent = Timestamp.getMillisecondsTimestamp();
+                object.url = window.location.href;
+
+                var json = JSON.stringify(object);
+                connection.send(json);
+            }else{
+                var json = JSON.stringify(object);
+                connection.send(json);
+            }
         }else{
             Logger.error("No open Websocket connection");
             retryConnection();
@@ -146,7 +153,7 @@ CommunicationExtension.WebsocketController = (function (){
         var object = new Object();
         object.command = "connectRequest";
 
-        sendJSON(object);
+        sendJSON(object, true);
     },
 
     sendConnectionComplete = function(){
@@ -154,7 +161,7 @@ CommunicationExtension.WebsocketController = (function (){
         var object = new Object();
         object.command = "connectComplete";
 
-        sendJSON(object);
+        sendJSON(object, true);
     },
 
     retryConnection = function(){
