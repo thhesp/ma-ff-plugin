@@ -51,18 +51,5 @@ var CommunicationExtension = {
             controller.deactivateTab();
         }
 
-    },
-
-    onDeactivateTab: function(tabUrl){
-        var thisUrl = window.location.href;
-
-        Logger.log('deactivate tab: ' + thisUrl);
-
-        Logger.log('deactivated tab: ' + tabUrl);
-
-        if(thisUrl == tabUrl){
-            controller.deactivateTab();
-        }
     }
-
 };
