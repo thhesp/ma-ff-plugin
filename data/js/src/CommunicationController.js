@@ -64,7 +64,7 @@ CommunicationExtension.CommunicationController = (function (){
     onEventHappend = function(event, messageObj){
         Logger.log('Event: ' + messageObj);
         if(activated){
-            websocket.sendJSON(messageObj);
+            //websocket.sendJSON(messageObj);
         }
     },
 
