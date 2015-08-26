@@ -69,17 +69,6 @@ CommunicationExtension.WebsocketController = (function (){
 
     },
 
-    sendTestJSON = function(){
-        Logger.log('sending test json');
-        var obj = new Object();
-        obj.command = "request";
-        obj.x = 16;
-        obj.y = 15;
-
-        sendJSON(obj);
-        Logger.log('test json sent!');
-    },
-
 /* private methods */
 
     openWebsocketReal = function(connectionString){
@@ -179,8 +168,6 @@ CommunicationExtension.WebsocketController = (function (){
     that.openWebsocket = openWebsocket;
     that.closeWebsocket = closeWebsocket;
     that.sendJSON = sendJSON;
-
-    that.sendTestJSON = sendTestJSON;
 
     return that;
 })();
