@@ -7,7 +7,7 @@ var Timestamp = {
 
         var timestamp = Math.round(new Date().getTime() / 1000) + offset;
 
-        return timestamp;
+        return parseInt(timestamp);
     },
 
     getMillisecondsTimestamp: function(){
@@ -17,6 +17,6 @@ var Timestamp = {
 
         var timestamp = new Date().getTime() + offset;
 
-        return timestamp;
+        return parseInt(timestamp);
     }
 };
