@@ -79,10 +79,12 @@ CommunicationExtension.CommunicationController = (function (){
 
     activateTab = function(){
         activated = true;
+        websocket.sentActivateTabMessage();
     },
 
     deactivateTab = function(){
         activated = false;
+        websocket.sentDeactivateTabMessage();
     };
 
     that.init = init;

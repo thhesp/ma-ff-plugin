@@ -161,6 +161,22 @@ CommunicationExtension.WebsocketController = (function (){
         }else{
             Logger.error("No Websocket could be opened");
         }
+    },
+
+    sentActivateTabMessage = function(){
+        console.log("sent activate tab message");
+        var object = new Object();
+        object.command = "activate";
+
+        sendJSON(object, true);
+    },
+
+    sentDeactivateTabMessage = function(){
+        console.log("sent deactivate tab message");
+        var object = new Object();
+        object.command = "deactivate";
+
+        sendJSON(object, true);
     };
 
     that.init = init;
@@ -168,6 +184,8 @@ CommunicationExtension.WebsocketController = (function (){
     that.openWebsocket = openWebsocket;
     that.closeWebsocket = closeWebsocket;
     that.sendJSON = sendJSON;
+    that.sentActivateTabMessage = sentActivateTabMessage;
+    that.sentDeactivateTabMessage = sentDeactivateTabMessage;
 
     return that;
 })();
