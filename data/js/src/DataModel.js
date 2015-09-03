@@ -4,6 +4,8 @@ CommunicationExtension.DataModel = (function (){
     object = null,
     debuggerView = null,
 
+    pathGenerator = new CssSelectorGenerator,
+
 
     /* public methods */
 
@@ -104,6 +106,8 @@ CommunicationExtension.DataModel = (function (){
 
         eyeObject.attributes = extractAttributes(el);
         eyeObject.element = extractElementDimensions(el);
+        eyeObject.path = extractCSSPath(el);
+        //console.log("css path: ", extractCSSPath(el));
     },
 
     extractID = function(el){
@@ -159,6 +163,10 @@ CommunicationExtension.DataModel = (function (){
         element.outerHeight = $(el).outerHeight(true);
 
         return element;
+    },
+
+    extractCSSPath = function(el){
+        return pathGenerator.getSelector(el);
     },
 
     printNodeData = function(el){
