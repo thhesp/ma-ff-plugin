@@ -149,6 +149,7 @@ CommunicationExtension.WebsocketController = (function (){
         Logger.log('sending connection complete');
         var object = new Object();
         object.command = "connectComplete";
+        object.url = window.location.href;
 
         sendJSON(object, true);
     },
@@ -167,6 +168,7 @@ CommunicationExtension.WebsocketController = (function (){
         console.log("sent activate tab message");
         var object = new Object();
         object.command = "activate";
+        object.url = window.location.href;
 
         sendJSON(object, true);
     },
