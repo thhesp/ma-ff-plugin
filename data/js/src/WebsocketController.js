@@ -106,7 +106,8 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     onError = function(e){
-        Logger.error('WebSocket Error: ' + e);
+        Logger.error('WebSocket Error');
+        console.error('WebSocket Error: ' + e);
 
         // if the error happend while opening, retry connection
         if(opening){
@@ -134,7 +135,8 @@ CommunicationExtension.WebsocketController = (function (){
 
     onClose = function(e){
         open = false;
-        Logger.log('Server close: ' + e);
+        Logger.log('Server close');
+        console.log('Server close: ' + e);
     },
 
     sendConnectionRequest = function(){

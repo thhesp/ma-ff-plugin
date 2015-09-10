@@ -106,7 +106,9 @@ CommunicationExtension.DataModel = (function (){
 
         eyeObject.attributes = extractAttributes(el);
         eyeObject.element = extractElementDimensions(el);
-        eyeObject.path = extractCSSPath(el);
+        eyeObject.selector = extractCSSPath(el);
+
+        eyeObject.path = extractFullDOMPath(el);
         //console.log("css path: ", extractCSSPath(el));
     },
 
@@ -128,7 +130,7 @@ CommunicationExtension.DataModel = (function (){
     },
 
     extractTag = function(el){
-        return el.tagName;
+        return el.tagName.toLowerCase();
     },
 
     extractTitle = function(el){
@@ -167,6 +169,37 @@ CommunicationExtension.DataModel = (function (){
 
     extractCSSPath = function(el){
         return pathGenerator.getSelector(el);
+    },
+
+    extractFullDOMPath = function(el){
+        var parentEls = $( el ).parents()
+          .map(function() {
+            return extractAnchestorIdentifier(this);
+          })
+          .get()
+          .reverse()
+          .join( " > " );
+
+          return parentEls;
+    },
+
+    extractAnchestorIdentifier = function(anchestor){
+        var identifier = anchestor.tagName.toLowerCase();
+
+        if(anchestor.id){
+            identifier += '#' + anchestor.id;
+        }
+
+        if(anchestor.classList.Length != 0){
+            var classes = "";
+            for(var i = 0; i < anchestor.classList.length; i++){
+                classes += '.' + anchestor.classList[i];
+            }
+
+            identifier += classes;
+        }
+
+        return identifier;
     },
 
     printNodeData = function(el){
