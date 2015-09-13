@@ -67,6 +67,11 @@ CommunicationExtension.DataModel = (function (){
      
             //printNodeData(el);
             if(el != null && el != undefined){
+                eyeObject.htmlX = parseFloat(realX);
+                eyeObject.htmlY = parseFloat(realY);
+
+                console.log("EyeObject: ", eyeObject);
+
                 extractNodeData(eyeObject, el);
             }else{
                 createNotFoundMessage(eyeObject);
