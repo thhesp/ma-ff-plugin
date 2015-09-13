@@ -1,8 +1,12 @@
 CommunicationExtension.WebsocketController = (function (){
     var that = {},
-    connection = null,
 
-    open = false,
+    READY_STATE_CONNECTING = 0,
+    READY_STATE_OPEN = 1,
+    READY_STATE_CLOSING = 2,
+    READY_STATE_CLOSED = 3,
+
+    connection = null,
 
     opening = false,
     lastConnectionString = null,
@@ -51,7 +55,8 @@ CommunicationExtension.WebsocketController = (function (){
     sendJSON = function(object, small){
 
 
-        if(open){
+        if(connection != undefined && 
+            connection.readyState == READY_STATE_OPEN){
             if(small == undefined || small == false){
                 object.clientsent = Timestamp.getMillisecondsTimestamp();
                 object.url = window.location.href;
@@ -96,8 +101,8 @@ CommunicationExtension.WebsocketController = (function (){
 
     onOpen = function(e){
         Logger.log('Socket open');
-        open = true;
 
+        Logger.log("Status: ", connection.readyState);
         //opening successful
         opening = false;
         retries = 0;
@@ -135,7 +140,6 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     onClose = function(e){
-        open = false;
         Logger.log('Server close');
         console.log('Server close: ' + e);
         $(that).trigger('connectionClosed');

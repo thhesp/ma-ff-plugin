@@ -1,13 +1,15 @@
 var Logger = {
 
-    log: function(message){
+    log: function(){
         if(CommunicationExtension.Settings.getDebug()){
-            console.log(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':',message);
+            for(var i = 0; i < arguments.length; i++){
+                console.log(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':', arguments[i]);
+            }
         }
     },
 
-    error: function(message){
-    	console.error(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':',message);
+    error: function(){
+    	console.error(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':', arguments);
     }
 
 };
