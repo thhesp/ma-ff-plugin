@@ -20,6 +20,14 @@ CommunicationExtension.CommunicationController = (function (){
 
         $(websocket).on('messageReceived', onMessageReceived);
 
+        //forward data to communication extension main class
+
+        $(websocket).on('connectionClosed', CommunicationExtension.onConnectionClosed);
+
+        $(websocket).on('connectionError', CommunicationExtension.onConnectionError);
+
+        $(websocket).on('connectionComplete', CommunicationExtension.onConnectionComplete);
+
         pageEventListener = CommunicationExtension.PageEventListener.init();
 
         $(pageEventListener).on('event', onEventHappend);

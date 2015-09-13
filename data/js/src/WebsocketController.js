@@ -108,6 +108,7 @@ CommunicationExtension.WebsocketController = (function (){
     onError = function(e){
         Logger.error('WebSocket Error');
         console.error('WebSocket Error: ' + e);
+        $(that).trigger('connectionError');
 
         // if the error happend while opening, retry connection
         if(opening){
@@ -137,6 +138,7 @@ CommunicationExtension.WebsocketController = (function (){
         open = false;
         Logger.log('Server close');
         console.log('Server close: ' + e);
+        $(that).trigger('connectionClosed');
     },
 
     sendConnectionRequest = function(){
@@ -148,6 +150,7 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     sendConnectionComplete = function(){
+        $(that).trigger('connectionComplete');
         Logger.log('sending connection complete');
         var object = new Object();
         object.command = "connectComplete";

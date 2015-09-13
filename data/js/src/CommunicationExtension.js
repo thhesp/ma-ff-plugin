@@ -46,5 +46,17 @@ var CommunicationExtension = {
     onDeactivateTab: function(){
         Logger.log('deactivate Tab');
         controller.deactivateTab();
+    },
+
+    onConnectionClosed: function(event){
+        self.port.emit("connectionClosed");
+    },
+
+    onConnectionError: function(event){
+        self.port.emit("connectionError");
+    },
+
+    onConnectionComplete: function(event){
+        self.port.emit("connectionComplete");
     }
 };
