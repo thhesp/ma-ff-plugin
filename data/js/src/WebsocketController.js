@@ -100,7 +100,7 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     onOpen = function(e){
-        Logger.log('Socket open');
+        Logger.log('Socket open', e);
 
         Logger.log("Status: ", connection.readyState);
         //opening successful
@@ -111,8 +111,7 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     onError = function(e){
-        Logger.error('WebSocket Error');
-        console.error('WebSocket Error: ' + e);
+        Logger.error('WebSocket Error', e);
         $(that).trigger('connectionError');
 
         // if the error happend while opening, retry connection
@@ -123,7 +122,7 @@ CommunicationExtension.WebsocketController = (function (){
 
     onMessage = function(e){
         var timestamp = Timestamp.getMillisecondsTimestamp();
-        Logger.log('Server: ' + e.data);
+        Logger.log('Server: ', e.data);
 
         var object = $.parseJSON(e.data);
 
@@ -140,8 +139,7 @@ CommunicationExtension.WebsocketController = (function (){
     },
 
     onClose = function(e){
-        Logger.log('Server close');
-        console.log('Server close: ' + e);
+        Logger.log('Server close', e);
         $(that).trigger('connectionClosed');
     },
 

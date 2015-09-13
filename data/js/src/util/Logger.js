@@ -9,7 +9,9 @@ var Logger = {
     },
 
     error: function(){
-    	console.error(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':', arguments);
+        for(var i = 0; i < arguments.length; i++){
+            console.error(window.location.href, ' - ', Timestamp.getMillisecondsTimestamp(),':', arguments[i]);
+        }
     }
 
 };
