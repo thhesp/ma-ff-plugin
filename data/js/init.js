@@ -6,3 +6,4 @@ self.port.on("open", CommunicationExtension.onOpen);
 self.port.on("close", CommunicationExtension.onClose);
 
 self.port.on("activate", CommunicationExtension.onActivateTab);
+self.port.on("deactivate", CommunicationExtension.onDeactivateTab);

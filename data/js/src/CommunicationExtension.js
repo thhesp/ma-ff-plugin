@@ -38,18 +38,13 @@ var CommunicationExtension = {
         controller.closeWebsocket();
     },
 
-    onActivateTab: function(tabUrl){
-        var thisUrl = window.location.href;
+    onActivateTab: function(){
+        Logger.log('activate Tab');
+        controller.activateTab();
+    },
 
-        Logger.log('activate tab: ' + thisUrl);
-
-        Logger.log('activated tab: ' + tabUrl);
-
-        if(thisUrl == tabUrl){
-            controller.activateTab();
-        }else{
-            controller.deactivateTab();
-        }
-
+    onDeactivateTab: function(){
+        Logger.log('deactivate Tab');
+        controller.deactivateTab();
     }
 };
