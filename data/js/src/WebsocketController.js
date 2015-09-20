@@ -158,6 +158,9 @@ CommunicationExtension.WebsocketController = (function (){
         object.command = "connectComplete";
         object.url = window.location.href;
 
+        object.height = window.innerHeight;
+        object.width = window.innerWidth;
+
         sendJSON(object, true);
     },
 
@@ -176,6 +179,9 @@ CommunicationExtension.WebsocketController = (function (){
         var object = new Object();
         object.command = "activate";
         object.url = window.location.href;
+
+        object.height = window.innerHeight;
+        object.width = window.innerWidth;
 
         sendJSON(object, true);
     },
