@@ -24,6 +24,14 @@ CommunicationExtension.WebsocketController = (function (){
 
         lastConnectionString = null;
 
+        //close connection when closing the window
+        $(window).on('beforeunload', function(){
+            if(connection != undefined){
+                Logger.log("closing the connection, because the page is closing");
+                connection.close();
+            }
+        });
+
         return that;
     },
 
