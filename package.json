@@ -11,7 +11,7 @@
     "title": "Debug",
     "description": "Show debug messages. Default: 'false'",
     "type": "bool",
-    "value": true
+    "value": false
     },
     {
     "name": "useCustomIP",

@@ -1,6 +1,6 @@
 CommunicationExtension.Settings = (function (){
     var that = {},
-    debug = true,
+    debug = false,
     useCustomIP = false,
     defaultIP = "localhost",
     defaultPort = "8888",
@@ -8,12 +8,13 @@ CommunicationExtension.Settings = (function (){
     serverIP = defaultIP,
     serverPort = defaultPort,
 
-    isDebuggerActive = true,
+    isDebuggerActive = false,
 
 /* public methods */
 
     init = function(settings){
         if(settings != undefined){
+            Logger.log("settings: ", settings);
             initSettings(settings);
 
             if(debug){

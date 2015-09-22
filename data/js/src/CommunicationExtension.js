@@ -4,6 +4,7 @@ var CommunicationExtension = {
     settings: null,
 
     init: function() {
+        Logger.log("initialising");
         controller = this.CommunicationController.init();
         settings = this.Settings;
     },
@@ -20,10 +21,6 @@ var CommunicationExtension = {
         settings = settings.init(extensionSettings);
 
         Logger.error(extensionSettings);
-
-        Logger.error("Debug: ", settings.getDebug());
-
-        Logger.log('restart extension object');
 
         controller.restartWebsocket();
     },

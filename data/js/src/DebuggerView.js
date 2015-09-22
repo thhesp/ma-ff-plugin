@@ -11,9 +11,11 @@ CommunicationExtension.DebuggerView = (function (){
     },
 
     markPosition = function(x, y, color){
-        var debugElement = '<div class="'+debuggerElementClass+'" style="position: absolute; left: '+x+'px; top: '+y+'px; background-color: '+color+'; width: 5px; height: 5px;"></div>';
+        if(CommunicationExtension.Settings.getDebug()){
+            var debugElement = '<div class="'+debuggerElementClass+'" style="position: absolute; left: '+x+'px; top: '+y+'px; background-color: '+color+'; width: 5px; height: 5px;"></div>';
 
-        $("body").append(debugElement);
+            $("body").append(debugElement);
+        }
     },
 
     getDebuggerElement = function(){
