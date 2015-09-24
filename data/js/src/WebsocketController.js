@@ -130,7 +130,7 @@ CommunicationExtension.WebsocketController = (function (){
 
     onMessage = function(e){
         var timestamp = Timestamp.getMillisecondsTimestamp();
-        Logger.log('Server: ', e.data);
+        //Logger.log('Server: ', e.data);
 
         var object = $.parseJSON(e.data);
 

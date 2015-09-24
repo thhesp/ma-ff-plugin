@@ -63,7 +63,7 @@ CommunicationExtension.CommunicationController = (function (){
 /* private methods */
 
     onMessageReceived = function(event, object){
-        Logger.log('messageObject', object);
+        //Logger.log('messageObject', object);
         if(activated){
             processMessage(object);
         }
@@ -72,7 +72,7 @@ CommunicationExtension.CommunicationController = (function (){
     onEventHappend = function(event, messageObj){
         Logger.log('Event: ', messageObj);
         if(activated){
-            //websocket.sendJSON(messageObj);
+            websocket.sendJSON(messageObj);
         }
     },
 
