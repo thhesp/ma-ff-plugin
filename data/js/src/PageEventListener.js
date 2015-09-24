@@ -31,8 +31,6 @@ CommunicationExtension.PageEventListener = (function (){
 
         object.eventtimestamp = event.timeStamp;
 
-        object.url = window.location.href;
-
         object.height = window.innerHeight;
         object.width = window.innerWidth;
 
