@@ -23,13 +23,13 @@ CommunicationExtension.PageEventListener = (function (){
         $(window).on('resize', onWindowResizeEvent);
     },
 
-    onURLChangeEvent = function(event){
+    onURLChangeEvent = function(eventData){
         var object = new Object();
         object.command = "event";
 
         object.eventType = "url-change";
 
-        object.eventtimestamp = event.timeStamp;
+        object.eventtimestamp = eventData.timeStamp;
 
         object.height = window.innerHeight;
         object.width = window.innerWidth;
@@ -37,13 +37,13 @@ CommunicationExtension.PageEventListener = (function (){
         $(that).trigger('event', object);
     },
 
-    onWindowResizeEvent = function(event){
+    onWindowResizeEvent = function(eventData){
         var object = new Object();
         object.command = "event";
 
         object.eventType = "resize";
 
-        object.eventtimestamp = event.timeStamp;
+        object.eventtimestamp = Timestamp.getMillisecondsTimestamp();
 
         object.height = window.innerHeight;
         object.width = window.innerWidth;
@@ -51,13 +51,13 @@ CommunicationExtension.PageEventListener = (function (){
         $(that).trigger('event', object);
     },
 
-    onScrollEvent = function(event){
+    onScrollEvent = function(eventData){
         var object = new Object();
         object.command = "event";
 
         object.eventType = "scroll";
 
-        object.eventtimestamp = event.timeStamp;
+        object.eventtimestamp = Timestamp.getMillisecondsTimestamp();
 
         object.scrollx = window.scrollX;
 
