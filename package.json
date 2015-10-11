@@ -1,8 +1,8 @@
 {
-  "name": "flexiblewebsiteaddon",
-  "title": "flexibleWebsiteAddon",
-  "id": "flexibleWebsiteAddon",
-  "description": "a basic add-on",
+  "name": "webanalyzerplugin",
+  "title": "WebAnalyzer Plugin",
+  "id": "webanalyzerplugin",
+  "description": "Plugin to communicate with the WebAnalyzer desktop application",
   "author": "",
   "license": "MPL 2.0",
   "version": "0.1",
