@@ -1,16 +1,40 @@
+/*
+   Class: CommunicationController
+   The main controller of the plugin
+*/
 CommunicationExtension.CommunicationController = (function (){
     var that = {},
+
+    /* 
+        Variable: websocket
+        Reference to the WebSocketController
+    */
     websocket = null,
 
+    /* 
+        Variable: pageEventListener
+        Reference to the PageEventListener
+    */
     pageEventListener = null,
 
+    /* 
+        Variable: settings
+        Reference to the settings
+    */
     settings = null,
 
+    /* 
+        Variable: activated
+        is the tab currently active or not
+    */
     activated = true,
 
 
 /* public methods */
-
+    /* 
+        Function: init
+        Function which initialises the CommunicationController
+    */
     init = function(){
         settings = CommunicationExtension.Settings;
 
@@ -35,6 +59,10 @@ CommunicationExtension.CommunicationController = (function (){
         return that;
     },
 
+    /* 
+        Function: openWebsocket
+        Opens the websocket connection with the values from the settings
+    */
     openWebsocket = function(){
         if(settings.getUseCustomIP()){
             Logger.log('using custom IP');
@@ -47,21 +75,41 @@ CommunicationExtension.CommunicationController = (function (){
         }
     },
 
+    /* 
+        Function: restartWebsocket
+        Restarts the websocket connection
+    */
     restartWebsocket = function(){
         closeWebsocket();
         openWebsocket();
     }
 
+    /* 
+        Function: buttonClick
+        Gets called when a button was clicked (not used currently)
+    */
     buttonClick = function(){
         websocket.sendTestJSON();
     },
 
+    /* 
+        Function: closeWebsocket
+        Closes the websocket connection
+    */
     closeWebsocket = function(){
         websocket.closeWebsocket();
     },
 
 /* private methods */
 
+    /* 
+        Function: onMessageReceived
+        Gets called from the WebsocketController when a message is received
+
+
+        Parameters:
+          object - The message object which was received
+    */
     onMessageReceived = function(event, object){
         //Logger.log('messageObject', object);
         if(activated){
@@ -69,6 +117,13 @@ CommunicationExtension.CommunicationController = (function (){
         }
     },
 
+    /* 
+        Function: onEventHappend
+        Gets called from the PageEventListener when an event happend
+
+        Parameters:
+          messageObj - The message object to be sent to the server
+    */
     onEventHappend = function(event, messageObj){
         Logger.log('Event: ', messageObj);
         if(activated){
@@ -76,6 +131,13 @@ CommunicationExtension.CommunicationController = (function (){
         }
     },
 
+    /*
+        Function: processMessage
+        Processes the message received over the websocket connection
+
+        Parameters:
+          object - The message object which needs to be processed
+    */
     processMessage = function(object){
         // data request
         if(object.command == 'request'){
@@ -85,11 +147,19 @@ CommunicationExtension.CommunicationController = (function (){
         }
     },
 
+    /*
+        Function: activateTab
+        Called when the tab gets activated
+    */
     activateTab = function(){
         activated = true;
         websocket.sentActivateTabMessage();
     },
 
+    /*
+        Function: deactivateTab
+        Called when the tab gets deactivated
+    */
     deactivateTab = function(){
         activated = false;
         websocket.sentDeactivateTabMessage();

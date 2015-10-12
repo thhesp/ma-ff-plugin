@@ -1,14 +1,39 @@
+/*
+   Class: DataModel
+   Used for extracting data about an element.
+*/
 CommunicationExtension.DataModel = (function (){
     var that = {},
 
+    /* 
+        Variable: object
+        Reference to the current message object
+    */
     object = null,
+
+    /* 
+        Variable: debuggerView
+        Reference to the DebuggerView
+    */
     debuggerView = null,
 
+    /* 
+        Variable: pathGenerator
+        Reference to the CSSSelectorGenerator
+    */
     pathGenerator = new CssSelectorGenerator,
 
 
     /* public methods */
 
+    /* 
+        Function: init
+        Function which initialises the DataModel
+
+        Parameters:
+
+          messageObject - The message object which was received
+    */
     init = function(messageObject){
 
         debuggerView = CommunicationExtension.DebuggerView.init();
@@ -41,6 +66,17 @@ CommunicationExtension.DataModel = (function (){
         return that;
     },
 
+
+    /* 
+        Function: analyzeData
+        Analyses the data and extracts the element informations
+
+        Parameters:
+
+          eyeObject - Reference to a part of the message object
+          toolbarHeight - current height of the toolbar
+          markColor - Color of the debuggerview (if used)
+    */
     analyzeData = function(eyeObject, toolbarHeight, markColor) {
 
         //map screen position to inner browser position and overall browser position
@@ -81,12 +117,24 @@ CommunicationExtension.DataModel = (function (){
         }
     },
 
+    /* 
+        Function: exportForJSON
+        Returns the enriched message object to be sent back to the server
+    */
     exportForJSON = function(){
         return object;
     },
 
     /* private methods */
 
+    /* 
+        Function: createNotFoundMessage
+        If no element was at the given coordinates the message object gets changed to represent it.
+
+        Parameters:
+
+          eyeObject - Reference to a part of the message object
+    */
     createNotFoundMessage = function(eyeObject){
         eyeObject.command = 'error';
 
@@ -94,6 +142,14 @@ CommunicationExtension.DataModel = (function (){
         eyeObject.error = "No Element was Found at this location.";
     },
 
+    /* 
+        Function: createCoordinatesErrorMessage
+        If the coordinates are not within the browser the message object gets changed to represent it.
+
+        Parameters:
+
+          eyeObject - Reference to a part of the message object
+    */
     createCoordinatesErrorMessage = function(eyeObject){
         eyeObject.command = 'error';
 
@@ -101,6 +157,15 @@ CommunicationExtension.DataModel = (function (){
         eyeObject.error = "Coordinates are outside of the browser window";
     },
 
+    /* 
+        Function: extractNodeData
+        Extracts all necessary informations about the given element and adds them to the eyeObject
+
+        Parameters:
+
+          eyeObject - Reference to a part of the message object
+          el - The element with is at the given coordinates
+    */
     extractNodeData = function(eyeObject, el){
         eyeObject.tag = extractTag(el);
     
@@ -117,6 +182,14 @@ CommunicationExtension.DataModel = (function (){
         //console.log("css path: ", extractCSSPath(el));
     },
 
+    /* 
+        Function: extractID
+        Extracts the id of the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractID = function(el){
         if(el.id){
             return el.id;
@@ -125,6 +198,14 @@ CommunicationExtension.DataModel = (function (){
         }
     },
 
+    /* 
+        Function: extractClasses
+        Extracts the classes of the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractClasses = function(el){
         var classes = [];
         for(var i = 0; i < el.classList.length; i++){
@@ -134,10 +215,26 @@ CommunicationExtension.DataModel = (function (){
         return classes;
     },
 
+    /* 
+        Function: extractTag
+        Extracts the tag of the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractTag = function(el){
         return el.tagName.toLowerCase();
     },
 
+    /* 
+        Function: extractTitle
+        Extracts the title of the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractTitle = function(el){
         if(el.title){
             return el.title;
@@ -146,6 +243,14 @@ CommunicationExtension.DataModel = (function (){
         }
     },
 
+    /* 
+        Function: extractAttributes
+        Extracts the attributes of the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractAttributes = function(el){
         var attributes = [];
         for(var i = 0; i < el.attributes.length; i++){
@@ -159,6 +264,14 @@ CommunicationExtension.DataModel = (function (){
         return attributes;
     },
 
+    /* 
+        Function: extractElementDimensions
+        Extracts the element dimensions of the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractElementDimensions = function(el){
         var element = new Object();
 
@@ -172,10 +285,26 @@ CommunicationExtension.DataModel = (function (){
         return element;
     },
 
+    /* 
+        Function: extractCSSPath
+        Extracts the css path of the element with the help of the css path generator
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractCSSPath = function(el){
         return pathGenerator.getSelector(el);
     },
 
+    /* 
+        Function: extractFullDOMPath
+        Extracts the full path from the html base element to the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     extractFullDOMPath = function(el){
         var parentEls = $( el ).parents()
           .map(function() {
@@ -188,6 +317,14 @@ CommunicationExtension.DataModel = (function (){
           return parentEls;
     },
 
+    /* 
+        Function: extractAnchestorIdentifier
+        Creates the identifier with tag, id and classes for an element
+
+        Parameters:
+
+          anchestor - HTML Element
+    */
     extractAnchestorIdentifier = function(anchestor){
         var identifier = anchestor.tagName.toLowerCase();
 
@@ -207,6 +344,14 @@ CommunicationExtension.DataModel = (function (){
         return identifier;
     },
 
+    /* 
+        Function: printNodeData
+        Logs data about the element
+
+        Parameters:
+
+          el - HTML Element
+    */
     printNodeData = function(el){
         Logger.log('Element: ', el);
 

@@ -1,3 +1,7 @@
+/*
+   File: init.js
+   Initialises the plugin code
+*/
 CommunicationExtension.init();
 
 self.port.on("click", CommunicationExtension.onClick);

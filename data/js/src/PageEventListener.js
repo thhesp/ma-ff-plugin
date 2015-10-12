@@ -1,8 +1,16 @@
+/*
+   Class: PageEventListener
+   Used for checking for events
+*/
 CommunicationExtension.PageEventListener = (function (){
     var that = {},
 
     /* public methods */
 
+    /* 
+        Function: init
+        Function which initialises the PageEventListener
+    */
     init = function(){
 
         setListeners();
@@ -12,6 +20,11 @@ CommunicationExtension.PageEventListener = (function (){
 
 /* private methods */
 
+    /* 
+        Function: setListeners
+        Sets listeners for the page events
+
+    */
     setListeners = function(){
 
         //$(window).on('click', onClickEvent);
@@ -23,6 +36,14 @@ CommunicationExtension.PageEventListener = (function (){
         $(window).on('resize', onWindowResizeEvent);
     },
 
+    /* 
+        Function: onURLChangeEvent
+        Listener for the URL change event
+
+        Parameters:
+
+            eventData - The data about the event
+    */
     onURLChangeEvent = function(eventData){
         var object = new Object();
         object.command = "event";
@@ -37,6 +58,14 @@ CommunicationExtension.PageEventListener = (function (){
         $(that).trigger('event', object);
     },
 
+    /* 
+        Function: onWindowResizeEvent
+        Listener for the window resize event
+
+        Parameters:
+
+            eventData - The data about the event
+    */
     onWindowResizeEvent = function(eventData){
         var object = new Object();
         object.command = "event";
@@ -51,6 +80,14 @@ CommunicationExtension.PageEventListener = (function (){
         $(that).trigger('event', object);
     },
 
+    /* 
+        Function: onScrollEvent
+        Listener for the scroll event
+
+        Parameters:
+
+            eventData - The data about the event
+    */
     onScrollEvent = function(eventData){
         var object = new Object();
         object.command = "event";
@@ -66,6 +103,14 @@ CommunicationExtension.PageEventListener = (function (){
         $(that).trigger('event', object);
     },
 
+    /* 
+        Function: onClickEvent
+        Listener for the click event (currently not used)
+
+        Parameters:
+
+            event - The data about the event
+    */
     onClickEvent = function(event){
 
         var object = new Object();

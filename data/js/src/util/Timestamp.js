@@ -1,5 +1,13 @@
+/*
+   Class: Timestamp
+   A class for generating timestamps
+*/
 var Timestamp = {
 
+      /*
+        Function: getUnixTimestamp
+        Returns a unix timestamp
+      */
     getUnixTimestamp: function(){
         var date = new Date();
 
@@ -10,6 +18,10 @@ var Timestamp = {
         return parseInt(timestamp);
     },
 
+    /*
+        Function: getMillisecondsTimestamp
+        Returns a timestamp in milliseconds
+    */
     getMillisecondsTimestamp: function(){
         var date = new Date();
 
